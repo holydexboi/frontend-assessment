@@ -9,10 +9,10 @@ import {
 import { useState } from "react";
 import Personal from "../components/Personal";
 import Plan from "../components/Plan";
-import 
+import Addon from "../components/Addon";
 
 const Main = () => {
-  const [steps, setSteps] = useState(2);
+  const [steps, setSteps] = useState(3);
   return (
     <>
       <Container maxW={"container.lg"} mt="10">
@@ -26,7 +26,7 @@ const Main = () => {
               gap={40}
             >
               <Flex direction={"column"} pt={"10"} px={"8"} gap={5}>
-                <Flex direction={"row"} gap={3}>
+                <Flex direction={"row"} gap={3} onClick={() => setSteps(1)} cursor={'pointer'}>
                   <Circle
                     {...(steps === 1
                       ? { size: "35px", bg: "#C0E5FA", color: "#03295A" }
@@ -50,7 +50,7 @@ const Main = () => {
                     </Text>
                   </Flex>
                 </Flex>
-                <Flex direction={"row"} gap={3}>
+                <Flex direction={"row"} gap={3} onClick={() => setSteps(2)} cursor={'pointer'}>
                   <Circle
                     {...(steps === 2
                       ? { size: "35px", bg: "#C0E5FA", color: "#03295A" }
@@ -74,7 +74,7 @@ const Main = () => {
                     </Text>
                   </Flex>
                 </Flex>
-                <Flex direction={"row"} gap={3}>
+                <Flex direction={"row"} gap={3} onClick={() => setSteps(3)} cursor={'pointer'}>
                   <Circle
                     {...(steps === 3
                       ? { size: "35px", bg: "#C0E5FA", color: "#03295A" }
@@ -98,7 +98,7 @@ const Main = () => {
                     </Text>
                   </Flex>
                 </Flex>
-                <Flex direction={"row"} gap={3}>
+                <Flex direction={"row"} gap={3} onClick={() => setSteps(4)} cursor={'pointer'}>
                   <Circle
                     {...(steps === 4
                       ? { size: "35px", bg: "#C0E5FA", color: "#03295A" }
@@ -125,6 +125,7 @@ const Main = () => {
               </Flex>
               {steps === 1 && <Personal />}
               {steps === 2 && <Plan />}
+              {steps === 3 && <Addon />}
             </Flex>
           </CardBody>
         </Card>
