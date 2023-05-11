@@ -14,7 +14,7 @@ const config = {
 const customTheme = extendTheme({ config, styles: {
   global: (props: StyleFunctionProps) => ({
     body: {
-      bg: mode('#EFF5FF','string')(props),
+      bg: mode('#EEF5FF','string')(props),
     }
   })
 },
