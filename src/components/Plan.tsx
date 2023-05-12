@@ -31,7 +31,17 @@ const Plan = ({
 }: PlanProps) => {
   return (
     <>
-      <Flex direction={"column"} paddingTop={8} gap={2}>
+      <Flex
+        borderRadius={{ base: "xl", lg: "none" }}
+        backgroundColor={{ base: "white" }}
+        paddingX={{ base: "5", lg: "0" }}
+        width={{ base: "", lg: "full" }}
+        marginX={{ base: "5", lg: "0" }}
+        boxShadow={{ base: "lg", lg: "none" }}
+        direction={"column"}
+        paddingTop={8}
+        gap={2}
+      >
         <Text as="span" fontWeight="bold" color={"#03295A"} fontSize="xx-large">
           Select your plan
         </Text>
@@ -44,22 +54,22 @@ const Plan = ({
           You have the option of monthly or yearly billing.
         </Text>
 
-        <Flex justify={"space-between"} mt={8} gap={5}>
+        <Flex direction={{base:'column', lg:'row'}} justify={"space-between"} mt={8} gap={5}>
           <Card
             {...(billType === "arcade"
               ? { border: "1px", borderColor: "#6B46C1", bgColor: "#F8F9FE" }
               : { border: "0px" })}
             boxShadow={"md"}
             rounded={"md"}
-            height={"48"}
-            width={"44"}
+            height={{base:"28", lg:"48"}}
+            width={{base:"", lg:"44"}}
             cursor={"pointer"}
             onClick={() => setBillType("arcade")}
           >
-            <CardBody>
+            <CardBody display={{base:'flex', lg:'unset'}}>
               <Image src={arcadeImg} h={"50px"} alt="Arcade image" />
 
-              <Flex direction={"column"} marginTop={"8"}>
+              <Flex direction={"column"} marginLeft={{base:'8', lg:'0'}} marginTop={{base:"2", lg:"8"}}>
                 <Text
                   as="span"
                   fontWeight="bold"
@@ -95,15 +105,15 @@ const Plan = ({
               : { border: "0px" })}
             boxShadow={"md"}
             rounded={"md"}
-            height={"48"}
-            width={"44"}
+            height={{base:"28", lg:"48"}}
+            width={{base:"", lg:"44"}}
             cursor={"pointer"}
             onClick={() => setBillType("advance")}
           >
-            <CardBody>
+            <CardBody display={{base:'flex', lg:'unset'}}>
               <Image src={advanceImg} h={"50px"} alt="Advance image" />
               <Spacer />
-              <Flex direction={"column"} marginTop={"8"}>
+              <Flex direction={"column"} marginLeft={{base:'8', lg:'0'}} marginTop={{base:"2", lg:"8"}}>
                 <Text
                   as="span"
                   fontWeight="bold"
@@ -139,15 +149,15 @@ const Plan = ({
               : { border: "0px" })}
             boxShadow={"md"}
             rounded={"md"}
-            height={"48"}
-            width={"44"}
+            height={{base:"28", lg:"48"}}
+            width={{base:"", lg:"44"}}
             cursor={"pointer"}
             onClick={() => setBillType("pro")}
           >
-            <CardBody>
+            <CardBody display={{base:'flex', lg:'unset'}}>
               <Image src={proImg} h={"50px"} alt="Pro image" />
               <Spacer />
-              <Flex direction={"column"} marginTop={"8"}>
+              <Flex direction={"column"} marginLeft={{base:'8', lg:'0'}} marginTop={{base:"2", lg:"8"}}>
                 <Text
                   as="span"
                   fontWeight="bold"

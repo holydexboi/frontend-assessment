@@ -16,7 +16,7 @@ import Summary from "../components/Summary";
 import Thank from "../components/Thank";
 
 const Main = () => {
-  const [steps, setSteps] = useState(1);
+  const [steps, setSteps] = useState(2);
   const [personalInfo, setPersonalInfo] = useState({
     name: "",
     email: "",
