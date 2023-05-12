@@ -8,6 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import sideBarImage from '../assets/images/bg-sidebar-desktop.svg'
+import mobileSideBarImage from '../assets/images/bg-sidebar-mobile.svg'
 import Personal from "../components/Personal";
 import Plan from "../components/Plan";
 import Addon from "../components/Addon";
@@ -61,17 +62,19 @@ const Main = () => {
 
   return (
     <>
-      <Container maxW={"container.lg"} mt="10">
-        <Card borderTopRadius="xl" boxShadow="lg" height={"container.sm"}>
-          <CardBody>
+      <Container  paddingX={{base: '0', lg: '10'}} maxW={"container.lg"} mt={{lg:"10"}} >
+        <Card borderTopRadius={{lg:"xl"}} backgroundColor={{lg:'white'}} boxShadow={{lg:"lg"}} height={"container.sm"}>
+          <CardBody padding={{base:'0', lg: '5'}}>
             <Flex
               height={"full"}
+              direction={{base:'column', lg:'row'}}
               width={"full"}
-              backgroundImage={`url(${sideBarImage})`}
+              backgroundImage={{base:`url(${mobileSideBarImage})`, lg:`url(${sideBarImage})`}}
               backgroundRepeat="no-repeat"
-              gap={40}
+              backgroundSize={'contain'}
+              gap={{base:'6', lg:'40'}}
             >
-              <Flex direction={"column"} pt={"10"} px={"8"} gap={5}>
+              <Flex justify={{base:'center', lg:'normal'}} direction={{base: "row", lg:"column"}} pt={"10"} px={{base:'0', lg:"8"}} gap={5}>
                 <Flex direction={"row"} gap={3}>
                   <Circle
                     {...(steps === 1
@@ -87,7 +90,7 @@ const Main = () => {
                       1
                     </Text>
                   </Circle>
-                  <Flex direction={"column"} color={"white"}>
+                  <Flex display={{base: 'none', lg: 'flex'}} direction={"column"} w={'30'} color={"white"}>
                     <Text as="span" fontWeight="normal" fontSize="small">
                       STEP 1
                     </Text>
@@ -111,7 +114,7 @@ const Main = () => {
                       2
                     </Text>
                   </Circle>
-                  <Flex direction={"column"} color={"white"}>
+                  <Flex display={{base: 'none', lg: 'flex'}} direction={"column"} color={"white"}>
                     <Text as="span" fontWeight="normal" fontSize="small">
                       STEP 2
                     </Text>
@@ -135,7 +138,7 @@ const Main = () => {
                       3
                     </Text>
                   </Circle>
-                  <Flex direction={"column"} color={"white"}>
+                  <Flex display={{base: 'none', lg: 'flex'}} direction={"column"} color={"white"}>
                     <Text as="span" fontWeight="normal" fontSize="small">
                       STEP 3
                     </Text>
@@ -159,7 +162,7 @@ const Main = () => {
                       4
                     </Text>
                   </Circle>
-                  <Flex direction={"column"} color={"white"}>
+                  <Flex display={{base: 'none', lg: 'block'}} direction={"column"} color={"white"}>
                     <Text as="span" fontWeight="normal" fontSize="small">
                       STEP 4
                     </Text>
