@@ -8,7 +8,28 @@ import {
   Stack,
   StackDivider,
 } from "@chakra-ui/react";
-const Summary = () => {
+
+interface SummaryProps {
+  billType: String;
+  planType: String;
+  price: number;
+  addon: { name: String; price: number; description: String }[];
+  setSteps: (value: number) => void;
+  onNext: () => void;
+  onPrevious: () => void;
+}
+const Summary = ({
+  billType,
+  planType,
+  price,
+  addon,
+  setSteps,
+  onNext,
+  onPrevious,
+}: SummaryProps) => {
+  const total = addon.reduce((acc, item) => {
+    return acc + item.price;
+  }, price);
   return (
     <>
       <Flex direction={"column"} paddingTop={8} gap={3}>
@@ -36,7 +57,9 @@ const Summary = () => {
                     color={"#03295A"}
                     fontSize="small"
                   >
-                    Arcade (Monthly)
+                    {`${
+                      billType.charAt(0).toUpperCase() + billType.slice(1)
+                    } (${planType === "monthly" ? "Monthly" : "Yearly"})`}
                   </Text>
                   <Text
                     as="span"
@@ -45,6 +68,8 @@ const Summary = () => {
                     decoration={"underline"}
                     fontSize="small"
                     cursor={"pointer"}
+                    _hover={{ color: "#03295A" }}
+                    onClick={() => setSteps(2)}
                   >
                     Change
                   </Text>
@@ -55,48 +80,31 @@ const Summary = () => {
                   color={"#03295A"}
                   fontSize="small"
                 >
-                  $9/mo
+                  {`$${price}/${planType === "monthly" ? "mo" : "yr"}`}
                 </Text>
               </Flex>
               <Flex direction={"column"} gap={"5"}>
-                <Flex justify={"space-between"}>
-                  <Text
-                    as="span"
-                    fontWeight="medium"
-                    color={"#C0C1C8"}
-                    fontSize="small"
-                    cursor={"pointer"}
-                  >
-                    Online service
-                  </Text>
-                  <Text
-                    as="span"
-                    fontWeight="semibold"
-                    color={"#03295A"}
-                    fontSize="small"
-                  >
-                    +$1/mo
-                  </Text>
-                </Flex>
-                <Flex justify={"space-between"}>
-                  <Text
-                    as="span"
-                    fontWeight="medium"
-                    color={"#C0C1C8"}
-                    fontSize="small"
-                    cursor={"pointer"}
-                  >
-                    Larger storage
-                  </Text>
-                  <Text
-                    as="span"
-                    fontWeight="semibold"
-                    color={"#03295A"}
-                    fontSize="small"
-                  >
-                    +$2/mo
-                  </Text>
-                </Flex>
+                {addon.map((add, index) => (
+                  <Flex justify={"space-between"} key={index}>
+                    <Text
+                      as="span"
+                      fontWeight="medium"
+                      color={"#C0C1C8"}
+                      fontSize="small"
+                      cursor={"pointer"}
+                    >
+                      {add.description}
+                    </Text>
+                    <Text
+                      as="span"
+                      fontWeight="semibold"
+                      color={"#03295A"}
+                      fontSize="small"
+                    >
+                      {`+$${add.price}/${planType === "monthly" ? "mo" : "yr"}`}
+                    </Text>
+                  </Flex>
+                ))}
               </Flex>
             </Stack>
           </CardBody>
@@ -109,9 +117,9 @@ const Summary = () => {
             fontSize="small"
             cursor={"pointer"}
           >
-            Total (per month)
+            {`Total (per ${planType === "monthly" ? "month" : "year"})`}
           </Text>
-          <Spacer/>
+          <Spacer />
           <Text
             as="span"
             fontWeight="bold"
@@ -119,14 +127,19 @@ const Summary = () => {
             paddingRight={7}
             fontSize="medium"
           >
-            +$12/mo
+            {`+$${total}/${planType === "monthly" ? "mo" : "yr"}`}
           </Text>
         </Flex>
         <Flex direction={"row"} justify={"space-between"} marginTop={"24"}>
-          <Button bgColor={"white"} color={"#C0C1C8"}>
+          <Button bgColor={"white"} onClick={onPrevious} color={"#C0C1C8"}>
             Go Back
           </Button>
-          <Button bgColor={'#473EFF'} color={"white"} size="lg">
+          <Button
+            bgColor={"#473EFF"}
+            color={"white"}
+            onClick={onNext}
+            size="lg"
+          >
             Confirm
           </Button>
         </Flex>

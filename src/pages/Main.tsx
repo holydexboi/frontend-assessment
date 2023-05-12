@@ -20,6 +20,7 @@ const Main = () => {
     email: "",
     number: "",
   });
+  const [addon, setAddon] = useState([]);
   const [billType, setBillType] = useState("arcade");
   const [planType, setPlanType] = useState("monthly");
   const [price, setPrice] = useState(9);
@@ -94,7 +95,7 @@ const Main = () => {
                     </Text>
                   </Flex>
                 </Flex>
-                <Flex direction={"row"} gap={3} >
+                <Flex direction={"row"} gap={3}>
                   <Circle
                     {...(steps === 2
                       ? { size: "35px", bg: "#C0E5FA", color: "#03295A" }
@@ -118,7 +119,7 @@ const Main = () => {
                     </Text>
                   </Flex>
                 </Flex>
-                <Flex direction={"row"} gap={3} >
+                <Flex direction={"row"} gap={3}>
                   <Circle
                     {...(steps === 3
                       ? { size: "35px", bg: "#C0E5FA", color: "#03295A" }
@@ -142,7 +143,7 @@ const Main = () => {
                     </Text>
                   </Flex>
                 </Flex>
-                <Flex direction={"row"} gap={3} >
+                <Flex direction={"row"} gap={3}>
                   <Circle
                     {...(steps === 4 || steps === 5
                       ? { size: "35px", bg: "#C0E5FA", color: "#03295A" }
@@ -184,8 +185,26 @@ const Main = () => {
                   onPrevious={handlePrevious}
                 />
               )}
-              {steps === 3 && <Addon />}
-              {steps === 4 && <Summary />}
+              {steps === 3 && (
+                <Addon
+                  planType={planType}
+                  onNext={handleNext}
+                  onPrevious={handlePrevious}
+                  addon={addon}
+                  setAddon={setAddon}
+                />
+              )}
+              {steps === 4 && (
+                <Summary
+                  billType={billType}
+                  planType={planType}
+                  price={price}
+                  addon={addon}
+                  setSteps={setSteps}
+                  onNext={handleNext}
+                  onPrevious={handlePrevious}
+                />
+              )}
               {steps === 5 && <Thank />}
             </Flex>
           </CardBody>
