@@ -66,7 +66,7 @@ const Main = () => {
             <Flex
               height={"full"}
               width={"full"}
-              backgroundImage="url('src/assets/images/bg-sidebar-desktop.svg')"
+              backgroundImage="url('/src/assets/images/bg-sidebar-desktop.svg')"
               backgroundRepeat="no-repeat"
               gap={40}
             >
