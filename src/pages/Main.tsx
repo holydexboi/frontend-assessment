@@ -11,9 +11,52 @@ import Personal from "../components/Personal";
 import Plan from "../components/Plan";
 import Addon from "../components/Addon";
 import Summary from "../components/Summary";
+import Thank from "../components/Thank";
 
 const Main = () => {
-  const [steps, setSteps] = useState(3);
+  const [steps, setSteps] = useState(1);
+  const [personalInfo, setPersonalInfo] = useState({
+    name: "",
+    email: "",
+    number: "",
+  });
+  const [billType, setBillType] = useState("arcade");
+  const [planType, setPlanType] = useState("monthly");
+  const [price, setPrice] = useState(9);
+
+  const handleNext = () => {
+    setSteps((prev) => prev + 1);
+  };
+  const handlePrevious = () => {
+    setSteps((prev) => prev - 1);
+  };
+
+  const handlePlanChange = () => {
+    const copy = planType;
+
+    setPlanType(copy === "monthly" ? "yearly" : "monthly");
+
+    if (billType === "arcade") {
+      if (copy === "yearly") {
+        setPrice(9);
+      } else {
+        setPrice(90);
+      }
+    } else if (billType === "advance") {
+      if (copy === "yearly") {
+        setPrice(12);
+      } else {
+        setPrice(120);
+      }
+    } else if (billType === "pro") {
+      if (copy === "yearly") {
+        setPrice(15);
+      } else {
+        setPrice(150);
+      }
+    }
+  };
+
   return (
     <>
       <Container maxW={"container.lg"} mt="10">
@@ -27,12 +70,7 @@ const Main = () => {
               gap={40}
             >
               <Flex direction={"column"} pt={"10"} px={"8"} gap={5}>
-                <Flex
-                  direction={"row"}
-                  gap={3}
-                  onClick={() => setSteps(1)}
-                  cursor={"pointer"}
-                >
+                <Flex direction={"row"} gap={3}>
                   <Circle
                     {...(steps === 1
                       ? { size: "35px", bg: "#C0E5FA", color: "#03295A" }
@@ -56,12 +94,7 @@ const Main = () => {
                     </Text>
                   </Flex>
                 </Flex>
-                <Flex
-                  direction={"row"}
-                  gap={3}
-                  onClick={() => setSteps(2)}
-                  cursor={"pointer"}
-                >
+                <Flex direction={"row"} gap={3} >
                   <Circle
                     {...(steps === 2
                       ? { size: "35px", bg: "#C0E5FA", color: "#03295A" }
@@ -85,12 +118,7 @@ const Main = () => {
                     </Text>
                   </Flex>
                 </Flex>
-                <Flex
-                  direction={"row"}
-                  gap={3}
-                  onClick={() => setSteps(3)}
-                  cursor={"pointer"}
-                >
+                <Flex direction={"row"} gap={3} >
                   <Circle
                     {...(steps === 3
                       ? { size: "35px", bg: "#C0E5FA", color: "#03295A" }
@@ -114,14 +142,9 @@ const Main = () => {
                     </Text>
                   </Flex>
                 </Flex>
-                <Flex
-                  direction={"row"}
-                  gap={3}
-                  onClick={() => setSteps(4)}
-                  cursor={"pointer"}
-                >
+                <Flex direction={"row"} gap={3} >
                   <Circle
-                    {...(steps === 4
+                    {...(steps === 4 || steps === 5
                       ? { size: "35px", bg: "#C0E5FA", color: "#03295A" }
                       : {
                           size: "35px",
@@ -144,10 +167,26 @@ const Main = () => {
                   </Flex>
                 </Flex>
               </Flex>
-              {steps === 1 && <Personal />}
-              {steps === 2 && <Plan />}
+              {steps === 1 && (
+                <Personal
+                  personalInfo={personalInfo}
+                  setPersonalInfo={setPersonalInfo}
+                  onSubmit={handleNext}
+                />
+              )}
+              {steps === 2 && (
+                <Plan
+                  planType={planType}
+                  billType={billType}
+                  onPlanChange={handlePlanChange}
+                  setBillType={setBillType}
+                  onNext={handleNext}
+                  onPrevious={handlePrevious}
+                />
+              )}
               {steps === 3 && <Addon />}
               {steps === 4 && <Summary />}
+              {steps === 5 && <Thank />}
             </Flex>
           </CardBody>
         </Card>

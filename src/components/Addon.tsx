@@ -1,8 +1,10 @@
 import { Text, Flex, Button, Checkbox, Spacer } from "@chakra-ui/react";
-import { useState } from "react";
+
+
+interface Addon
 
 const Addon = () => {
-  const [planType, ] = useState("yearly");
+  
 
   return (
     <>

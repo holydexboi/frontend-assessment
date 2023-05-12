@@ -11,16 +11,24 @@ import {
 import arcadeImg from "../assets/images/icon-arcade.svg";
 import advanceImg from "../assets/images/icon-advanced.svg";
 import proImg from "../assets/images/icon-pro.svg";
-import { useState } from "react";
 
-const Plan = () => {
-  const [planType, setPlanType] = useState("monthly");
+interface PlanProps {
+  billType: String;
+  planType: String;
+  onPlanChange: () => void;
+  setBillType: (value: any) => void;
+  onNext: () => void;
+  onPrevious: () => void;
+}
 
-  const handleChangePlan = () => {
-    const copy = planType;
-
-    setPlanType(copy === "monthly" ? "yearly" : "monthly");
-  };
+const Plan = ({
+  planType,
+  billType,
+  setBillType,
+  onPlanChange,
+  onPrevious,
+  onNext,
+}: PlanProps) => {
   return (
     <>
       <Flex direction={"column"} paddingTop={8} gap={2}>
@@ -35,174 +43,40 @@ const Plan = () => {
         >
           You have the option of monthly or yearly billing.
         </Text>
-        {planType === "monthly" && (
-          <Flex justify={"space-between"} mt={8} gap={5}>
-            <Card
-              border={"1px"}
-              borderColor={"#6B46C1"}
-              boxShadow={"md"}
-              rounded={"md"}
-              bgColor={"#F8F9FE"}
-              height={"48"}
-              width={"44"}
-            >
-              <CardBody>
-                <Image src={arcadeImg} h={"50px"} alt="Arcade image" />
 
-                <Flex direction={"column"} marginTop={"12"}>
-                  <Text
-                    as="span"
-                    fontWeight="bold"
-                    color={"#03295A"}
-                    fontSize="large"
-                  >
-                    Arcade
-                  </Text>
-                  <Text
-                    as="span"
-                    fontWeight="semibold"
-                    color={"#C0C1C8"}
-                    fontSize="medium"
-                  >
-                    $9/mo
-                  </Text>
-                </Flex>
-              </CardBody>
-            </Card>
-            <Card
-              border={"1px"}
-              borderColor={"#6B46C1"}
-              boxShadow={"md"}
-              rounded={"md"}
-              height={"48"}
-              width={"44"}
-            >
-              <CardBody>
-                <Image src={advanceImg} h={"50px"} alt="Arcade image" />
-                <Spacer />
-                <Flex direction={"column"} marginTop={"12"}>
-                  <Text
-                    as="span"
-                    fontWeight="bold"
-                    color={"#03295A"}
-                    fontSize="large"
-                  >
-                    Advanced
-                  </Text>
-                  <Text
-                    as="span"
-                    fontWeight="semibold"
-                    color={"#C0C1C8"}
-                    fontSize="medium"
-                  >
-                    $12/mo
-                  </Text>
-                </Flex>
-              </CardBody>
-            </Card>
-            <Card
-              border={"1px"}
-              borderColor={"#6B46C1"}
-              boxShadow={"md"}
-              rounded={"md"}
-              height={"48"}
-              width={"44"}
-            >
-              <CardBody>
-                <Image src={proImg} h={"50px"} alt="Arcade image" />
-                <Spacer />
-                <Flex direction={"column"} marginTop={"12"}>
-                  <Text
-                    as="span"
-                    fontWeight="bold"
-                    color={"#03295A"}
-                    fontSize="large"
-                  >
-                    Pro
-                  </Text>
-                  <Text
-                    as="span"
-                    fontWeight="semibold"
-                    color={"#C0C1C8"}
-                    fontSize="medium"
-                  >
-                    $15/mo
-                  </Text>
-                </Flex>
-              </CardBody>
-            </Card>
-          </Flex>
-        )}{" "}
-        {planType === "yearly" && (
-          <Flex justify={"space-between"} mt={8} gap={5}>
-            <Card
-              border={"1px"}
-              borderColor={"#6B46C1"}
-              boxShadow={"md"}
-              rounded={"md"}
-              bgColor={"#F8F9FE"}
-              height={"48"}
-              width={"44"}
-            >
-              <CardBody>
-                <Image src={arcadeImg} h={"50px"} alt="Arcade image" />
+        <Flex justify={"space-between"} mt={8} gap={5}>
+          <Card
+            {...(billType === "arcade"
+              ? { border: "1px", borderColor: "#6B46C1", bgColor: "#F8F9FE" }
+              : { border: "0px" })}
+            boxShadow={"md"}
+            rounded={"md"}
+            height={"48"}
+            width={"44"}
+            cursor={"pointer"}
+            onClick={() => setBillType("arcade")}
+          >
+            <CardBody>
+              <Image src={arcadeImg} h={"50px"} alt="Arcade image" />
 
-                <Flex direction={"column"} marginTop={"8"}>
-                  <Text
-                    as="span"
-                    fontWeight="bold"
-                    color={"#03295A"}
-                    fontSize="large"
-                  >
-                    Arcade
-                  </Text>
-                  <Text
-                    as="span"
-                    fontWeight="semibold"
-                    color={"#C0C1C8"}
-                    fontSize="medium"
-                  >
-                    $90/yr
-                  </Text>
-                  <Text
-                    as="span"
-                    fontWeight="semibold"
-                    color={"#03295A"}
-                    fontSize="medium"
-                  >
-                    2 months free
-                  </Text>
-                </Flex>
-              </CardBody>
-            </Card>
-            <Card
-              border={"1px"}
-              borderColor={"#6B46C1"}
-              boxShadow={"md"}
-              rounded={"md"}
-              height={"48"}
-              width={"44"}
-            >
-              <CardBody>
-                <Image src={advanceImg} h={"50px"} alt="Arcade image" />
-                <Spacer />
-                <Flex direction={"column"} marginTop={"8"}>
-                  <Text
-                    as="span"
-                    fontWeight="bold"
-                    color={"#03295A"}
-                    fontSize="large"
-                  >
-                    Advanced
-                  </Text>
-                  <Text
-                    as="span"
-                    fontWeight="semibold"
-                    color={"#C0C1C8"}
-                    fontSize="medium"
-                  >
-                    $120/yr
-                  </Text>
+              <Flex direction={"column"} marginTop={"8"}>
+                <Text
+                  as="span"
+                  fontWeight="bold"
+                  color={"#03295A"}
+                  fontSize="large"
+                >
+                  Arcade
+                </Text>
+                <Text
+                  as="span"
+                  fontWeight="semibold"
+                  color={"#C0C1C8"}
+                  fontSize="medium"
+                >
+                  {planType === "yearly" ? "$90/yr" : "$9/mo"}
+                </Text>
+                {planType === "yearly" && (
                   <Text
                     as="span"
                     fontWeight="semibold"
@@ -211,37 +85,42 @@ const Plan = () => {
                   >
                     2 months free
                   </Text>
-                </Flex>
-              </CardBody>
-            </Card>
-            <Card
-              border={"1px"}
-              borderColor={"#6B46C1"}
-              boxShadow={"md"}
-              rounded={"md"}
-              height={"48"}
-              width={"44"}
-            >
-              <CardBody>
-                <Image src={proImg} h={"50px"} alt="Arcade image" />
-                <Spacer />
-                <Flex direction={"column"} marginTop={"8"}>
-                  <Text
-                    as="span"
-                    fontWeight="bold"
-                    color={"#03295A"}
-                    fontSize="large"
-                  >
-                    Pro
-                  </Text>
-                  <Text
-                    as="span"
-                    fontWeight="semibold"
-                    color={"#C0C1C8"}
-                    fontSize="medium"
-                  >
-                    $150/yr
-                  </Text>
+                )}
+              </Flex>
+            </CardBody>
+          </Card>
+          <Card
+            {...(billType === "advance"
+              ? { border: "1px", borderColor: "#6B46C1", bgColor: "#F8F9FE" }
+              : { border: "0px" })}
+            boxShadow={"md"}
+            rounded={"md"}
+            height={"48"}
+            width={"44"}
+            cursor={"pointer"}
+            onClick={() => setBillType("advance")}
+          >
+            <CardBody>
+              <Image src={advanceImg} h={"50px"} alt="Advance image" />
+              <Spacer />
+              <Flex direction={"column"} marginTop={"8"}>
+                <Text
+                  as="span"
+                  fontWeight="bold"
+                  color={"#03295A"}
+                  fontSize="large"
+                >
+                  Advanced
+                </Text>
+                <Text
+                  as="span"
+                  fontWeight="semibold"
+                  color={"#C0C1C8"}
+                  fontSize="medium"
+                >
+                  {planType === "yearly" ? "$120/yr" : "$12/mo"}
+                </Text>
+                {planType === "yearly" && (
                   <Text
                     as="span"
                     fontWeight="semibold"
@@ -250,11 +129,55 @@ const Plan = () => {
                   >
                     2 months free
                   </Text>
-                </Flex>
-              </CardBody>
-            </Card>
-          </Flex>
-        )}
+                )}
+              </Flex>
+            </CardBody>
+          </Card>
+          <Card
+            {...(billType === "pro"
+              ? { border: "1px", borderColor: "#6B46C1", bgColor: "#F8F9FE" }
+              : { border: "0px" })}
+            boxShadow={"md"}
+            rounded={"md"}
+            height={"48"}
+            width={"44"}
+            cursor={"pointer"}
+            onClick={() => setBillType("pro")}
+          >
+            <CardBody>
+              <Image src={proImg} h={"50px"} alt="Pro image" />
+              <Spacer />
+              <Flex direction={"column"} marginTop={"8"}>
+                <Text
+                  as="span"
+                  fontWeight="bold"
+                  color={"#03295A"}
+                  fontSize="large"
+                >
+                  Pro
+                </Text>
+                <Text
+                  as="span"
+                  fontWeight="semibold"
+                  color={"#C0C1C8"}
+                  fontSize="medium"
+                >
+                  {planType === "yearly" ? "$150/yr" : "$15/mo"}
+                </Text>
+                {planType === "yearly" && (
+                  <Text
+                    as="span"
+                    fontWeight="semibold"
+                    color={"#03295A"}
+                    fontSize="medium"
+                  >
+                    2 months free
+                  </Text>
+                )}
+              </Flex>
+            </CardBody>
+          </Card>
+        </Flex>
         <Flex
           height={"14"}
           width={"full"}
@@ -265,24 +188,43 @@ const Plan = () => {
           align={"center"}
           justify={"center"}
         >
-          <Text as="span" fontWeight="bold" color={"#03295A"} fontSize="large">
+          <Text
+            as="span"
+            fontWeight="bold"
+            {...(planType === "monthly"
+              ? { color: "#03295A" }
+              : { color: "#C0C1C8" })}
+            fontSize="large"
+          >
             Monthly
           </Text>
           <Switch
             colorScheme="facebook"
-            value={planType}
+            isChecked={planType === "yearly"}
             size="md"
-            onChange={handleChangePlan}
+            onChange={onPlanChange}
           />
-          <Text as="span" fontWeight="bold" color={"#C0C1C8"} fontSize="large">
+          <Text
+            as="span"
+            fontWeight="bold"
+            {...(planType === "yearly"
+              ? { color: "#03295A" }
+              : { color: "#C0C1C8" })}
+            fontSize="large"
+          >
             Yearly
           </Text>
         </Flex>
         <Flex direction={"row"} justify={"space-between"} marginTop={"14"}>
-          <Button bgColor={"white"} color={"#C0C1C8"}>
+          <Button bgColor={"white"} onClick={onPrevious} color={"#C0C1C8"}>
             Go Back
           </Button>
-          <Button bgColor={"#03295A"} color={"white"} size="lg">
+          <Button
+            bgColor={"#03295A"}
+            onClick={onNext}
+            color={"white"}
+            size="lg"
+          >
             Next Step
           </Button>
         </Flex>

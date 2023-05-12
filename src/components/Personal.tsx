@@ -1,66 +1,137 @@
 import {
-    Box,
-    Text,
-    Flex,
-    FormControl,
-    FormLabel,
-    Input,
-    Button
-  } from "@chakra-ui/react";
+  Box,
+  Text,
+  Flex,
+  FormControl,
+  FormLabel,
+  Input,
+  Button,
+  FormHelperText,
+  Spacer,
+} from "@chakra-ui/react";
+import { useState } from "react";
 
-const Personal = () => {
-  return (
-    <>
-        <Flex direction={"column"} paddingTop={8} gap={2}>
-                  <Text
-                    as="span"
-                    fontWeight="bold"
-                    color={"#03295A"}
-                    fontSize="xx-large"
-                  >
-                    Personal info
-                  </Text>
-                  <Text
-                    as="span"
-                    fontWeight="semibold"
-                    color={"#C0C1C8"}
-                    fontSize="medium"
-                  >
-                    Please provide your name, email address, and phone number.
-                  </Text>
-
-                  <FormControl marginTop={8}>
-                    <FormLabel color={"#03295A"}>Name</FormLabel>
-                    <Input
-                      color={"#C0C1C8"}
-                      type="text"
-                      placeholder="e.g Stephen King"
-                    />
-                  </FormControl>
-                  <FormControl marginTop={"5"}>
-                    <FormLabel color={"#03295A"}>Email Address</FormLabel>
-                    <Input
-                      color={"#C0C1C8"}
-                      type="email"
-                      placeholder="e.g stephenking@lorem.com"
-                    />
-                  </FormControl>
-                  <FormControl marginTop={"5"}>
-                    <FormLabel color={"#03295A"}>Phone Number</FormLabel>
-                    <Input
-                      color={"#C0C1C8"}
-                      type="text"
-                      placeholder="e.g +1 234 567 890"
-                    />
-                  </FormControl>
-                  <Box alignSelf={"end"} marginTop={"24"}>
-                    <Button bgColor={"#03295A"} color={"white"} size="lg">
-                      Next Step
-                    </Button>
-                  </Box>
-                </Flex>
-    </>
-  )
+interface PersonalProp {
+  personalInfo: { name: string; email: string; number: string };
+  setPersonalInfo: (value: any) => void;
+  onSubmit: () => void;
 }
 
-export default Personal
+const Personal = ({
+  personalInfo,
+  setPersonalInfo,
+  onSubmit,
+}: PersonalProp) => {
+  const [isError, setIsError] = useState({
+    name: false,
+    email: false,
+    number: false,
+  });
+
+  console.log(isError.name);
+
+  const handleSubmit = () => {
+    if (personalInfo.name === "") return setIsError({ ...isError, name: true });
+    if (personalInfo.email === "") return setIsError({ ...isError, email: true });
+    if (personalInfo.number === "") return setIsError({ ...isError, number: true });
+
+    onSubmit();
+  };
+
+  return (
+    <>
+      <Flex direction={"column"} paddingTop={8} gap={2}>
+        <Text as="span" fontWeight="bold" color={"#03295A"} fontSize="xx-large">
+          Personal info
+        </Text>
+        <Text
+          as="span"
+          fontWeight="semibold"
+          color={"#C0C1C8"}
+          fontSize="medium"
+        >
+          Please provide your name, email address, and phone number.
+        </Text>
+
+        <FormControl marginTop={8}>
+          <Flex>
+            <FormLabel color={"#03295A"}>Name</FormLabel>
+            <Spacer />
+            {isError.name && (
+              <FormHelperText color={"red"}>
+                This field is required
+              </FormHelperText>
+            )}
+          </Flex>
+          <Input
+            color={"#C0C1C8"}
+            type="text"
+            placeholder="e.g Stephen King"
+            name="name"
+            value={personalInfo.name}
+            onChange={(event) =>{
+              setPersonalInfo({ ...personalInfo, name: event.target.value })
+              setIsError({ ...isError, name: event.target.value === '' ? true: false });
+            }}
+          />
+        </FormControl>
+        <FormControl marginTop={"5"}>
+          <Flex>
+            <FormLabel color={"#03295A"}>Email Address</FormLabel>
+            <Spacer />
+            {isError.email && (
+              <FormHelperText color={"red"}>
+                This field is required
+              </FormHelperText>
+            )}
+          </Flex>
+          <Input
+            color={"#C0C1C8"}
+            type="email"
+            placeholder="e.g stephenking@lorem.com"
+            name="email"
+            value={personalInfo.email}
+            onChange={(event) =>{
+              setPersonalInfo({ ...personalInfo, email: event.target.value })
+              setIsError({ ...isError, email: event.target.value === '' ? true: false });
+            }}
+          />
+        </FormControl>
+        <FormControl marginTop={"5"}>
+          <Flex>
+            <FormLabel color={"#03295A"}>Phone Number</FormLabel>
+            <Spacer />
+            {isError.number && (
+              <FormHelperText color={"red"}>
+                This field is required
+              </FormHelperText>
+            )}
+          </Flex>
+          <Input
+            color={"#C0C1C8"}
+            type="text"
+            placeholder="e.g +1 234 567 890"
+            name="number"
+            value={personalInfo.number}
+            onChange={(event) =>{
+              setPersonalInfo({ ...personalInfo, number: event.target.value })
+              setIsError({ ...isError, number: event.target.value === '' ? true: false });
+            }}
+          />
+        </FormControl>
+        <Box alignSelf={"end"} marginTop={"24"}>
+          <Button
+            bgColor={"#03295A"}
+            color={"white"}
+            onClick={handleSubmit}
+            size="lg"
+          >
+            Next Step
+          </Button>
+        </Box>
+      </Flex>
+    </>
+  );
+};
+
+export default Personal;
