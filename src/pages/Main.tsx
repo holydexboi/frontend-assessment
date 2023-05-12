@@ -7,6 +7,7 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import sideBarImage from '../assets/images/bg-sidebar-desktop.svg'
 import Personal from "../components/Personal";
 import Plan from "../components/Plan";
 import Addon from "../components/Addon";
@@ -66,7 +67,7 @@ const Main = () => {
             <Flex
               height={"full"}
               width={"full"}
-              backgroundImage="url('bg-sidebar-desktop.svg')"
+              backgroundImage={`url(${sideBarImage})`}
               backgroundRepeat="no-repeat"
               gap={40}
             >
