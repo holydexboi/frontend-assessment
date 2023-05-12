@@ -64,7 +64,7 @@ const Personal = ({
             )}
           </Flex>
           <Input
-            color={"#C0C1C8"}
+            color={"#03295A"}
             type="text"
             placeholder="e.g Stephen King"
             name="name"
@@ -86,7 +86,7 @@ const Personal = ({
             )}
           </Flex>
           <Input
-            color={"#C0C1C8"}
+            color={"#03295A"}
             type="email"
             placeholder="e.g stephenking@lorem.com"
             name="email"
@@ -108,7 +108,7 @@ const Personal = ({
             )}
           </Flex>
           <Input
-            color={"#C0C1C8"}
+            color={"#03295A"}
             type="text"
             placeholder="e.g +1 234 567 890"
             name="number"
